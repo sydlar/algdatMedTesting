@@ -1,7 +1,7 @@
 Oppgave: Implementere en stakk
 ===================================
 
-Del 1: Tabell-implementasjpon
+Del 1: Tabell-implementasjon
 -------------------------------
 
 Skriv ferdig `ArrayStack.java`, og sørg for at alle testene passerer.

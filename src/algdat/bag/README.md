@@ -1,8 +1,8 @@
 Oppgave: Implementere en bag (beholder)
 =======================================
 
-Del 1: Tabell-implementasjpon
--------------------------------
+Del 1: Tabell-implementasjon
+----------------------------
 
 Skriv ferdig `ArrayBag.java`, og sørg for at alle testene passerer.
 
