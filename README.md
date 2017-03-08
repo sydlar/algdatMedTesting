@@ -7,10 +7,22 @@ Grunnidé
 Oppgaver for studentene består av
 
 - Oppgavetekst: Hva skal implementeres, under hvilke føringer?
-- Et grenesnitt som skal implementeres, presentert som et `interface`
+- Et grenesnitt som skal implementeres, presentert som et java-`interface`
+- Dokumentasjon av grensesnittet.
 - Skjelettkode for én eller flere implementasjoner av grensesnittene, d.v.s. i form av kompilerbar java-kode.
 - JUnit-tester (JUnit4). Disse skal helst feile i utgangspunktet.
 
+Tidligere har jeg lagt stor vekt på å forankre oppgaven i dokumentasjonen i grensesnittene. Med denne infallsvinkelen kan testene ta over for dette. Ideelt sett bør man ha både detaljert dokumentasjon og gode tester.
+
+Innhold
+---------------------------
+
+### `algdat.bag`
+
+Oppgave som kan handle om å implementere en grunnleggende beholder ved hjelp av en lenket liste og/eller en tabellstruktur.
+
+### `algdat.stack`
+Oppgave som kan handle om å implementere en stakk ved hjelp av en lenket liste og/eller en tabellstruktur.
 
 Nytte
 ------------------
