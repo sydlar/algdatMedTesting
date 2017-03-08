@@ -44,3 +44,9 @@ Ekstraoppgave for studentene:
 - Skriv en test som fanger opp denne bugen.
 
 Dersom faglærer klarer å lage bevisst ukomplette tester, så legger man godt til rette for at studentene kan utforske dette videre på denne måten.
+
+
+Kommentarer
+-----------
+
+Det er verdt å tenke på om strukturen i testene er optimal. Kanskje man bør foretrekke parametriserte tester fremfor denne typen tester som involverer arv. I det minste gir det færre klasser å forholde seg til. På den annen side må man altså forholde seg til disse parametriserte testene.
