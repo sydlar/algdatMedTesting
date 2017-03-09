@@ -5,40 +5,54 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Random;
+import java.util.function.Supplier;
 
 import static org.junit.Assert.*;
 import static org.junit.Assume.assumeFalse;
-import static org.junit.Assume.assumeTrue;
+import static org.junit.runners.Parameterized.Parameters;
 
-/**
- * Created by sydlar on 08.03.17.
- */
-public abstract class StackTest<T> {
-    private static final int MAX_TEST_SIZE = 100;
+@RunWith(Parameterized.class)
+public class StackTest {
+    private static final int MAX_IntegerESInteger_SIZE = 100;
+    private static final Random rGen = new Random();
+    private static final Supplier<Integer> INTEGER_SOURCE = () -> rGen.nextInt(20)-10;
 
-    abstract Stack<T> createStack();
-    abstract T createRandomValue();
 
-    private Stack<T> stack;
+    @Parameters(name="{index} (0: LinkedStack, 1: ArrayStack)")
+    public static Collection<Supplier<Stack<Integer>>> data(){
+        return Arrays.asList(LinkedStack::new,ArrayStack::new);
+    }
+
+    private final Supplier<Stack<Integer>> supplier;
+    private final Supplier<Integer> intSource;
+    private Stack<Integer> stack;
+
+    public StackTest(Supplier<Stack<Integer>> theSupplier){
+        supplier = theSupplier;
+        intSource = INTEGER_SOURCE;
+    }
 
     @Before
     public void init(){
-        stack = createStack();
+        stack = supplier.get();
     }
 
     @SuppressWarnings("unchecked")
-    private T[] createRandomValues(int n){
-        T[] elems = (T[]) new Object[n];
+    private Integer[] createRandomValues(int n){
+        Integer[] elems = new Integer[n];
         for(int i = 0; i < elems.length; i++)
-            elems[i] = createRandomValue();
+            elems[i] = intSource.get();
         return elems;
     }
 
-    private T[] createRandomValues(){
-        return createRandomValues(new Random().nextInt(MAX_TEST_SIZE));
+    private Integer[] createRandomValues(){
+        return createRandomValues(new Random().nextInt(MAX_IntegerESInteger_SIZE));
     }
 
     @Test
@@ -66,8 +80,8 @@ public abstract class StackTest<T> {
 
     @Test
     public void testFill() {
-        T[] elems = createRandomValues();
-        for (T e : elems) stack.push(e);
+        Integer[] elems = createRandomValues();
+        for (Integer e : elems) stack.push(e);
         assertEquals("Wrong size of stack", elems.length, stack.size());
         assumeFalse(elems.length == 0);
         assertFalse("Wrong result of isEmpty", stack.isEmpty());
@@ -75,19 +89,19 @@ public abstract class StackTest<T> {
 
     @Test
     public void testIterator() {
-        T[] elems = createRandomValues();
-        for (T e : elems) stack.push(e);
+        Integer[] elems = createRandomValues();
+        for (Integer e : elems) stack.push(e);
 
         int pos = elems.length;
-        for (T s : stack)
+        for (Integer s : stack)
             assertEquals("Feil verdi fra iterator", s, elems[--pos]);
         assertEquals("Wrong number of elements in iterator", 0, pos);
     }
 
     @Test
     public void testPopIteration(){
-        T[] elems = createRandomValues();
-        for(T e: elems) stack.push(e);
+        Integer[] elems = createRandomValues();
+        for(Integer e: elems) stack.push(e);
 
         int pos = elems.length;
         while(!stack.isEmpty()) {

@@ -16,20 +16,24 @@ import static org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
 public class BagTest {
+
     private static final int MAX_TEST_SIZE = 1000;
     private static final Random rGen = new Random();
     private static final Supplier<Integer> INTEGER_SOURCE = () -> rGen.nextInt(100)- 50;
 
-    @Parameters(name = "{index} [0: ArrayBag, 1: LinkedBag, 2: BadSetBag]")
+    @Parameters(name = "{index} (0: ArrayBag, 1: LinkedBag, 2: BadSetBag)")
     public static Collection<Supplier<Bag<?>>> data(){
         return Arrays.asList(ArrayBag::new, LinkedBag::new, BadSetBag::new);
     }
 
-    private Supplier<Bag<Integer>> bagSupplier;
-    private Supplier<Integer> valueSupplier = INTEGER_SOURCE;
+    private final Supplier<Bag<Integer>> bagSupplier;
+    private final Supplier<Integer> valueSupplier;
     private Bag<Integer> bag;
 
-    public BagTest(Supplier<Bag<Integer>> supplier){bagSupplier = supplier;}
+    public BagTest(Supplier<Bag<Integer>> supplier){
+        bagSupplier = supplier;
+        valueSupplier = INTEGER_SOURCE;
+    }
 
     @Before
     public void init(){bag = bagSupplier.get();}
