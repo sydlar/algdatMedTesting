@@ -1,36 +1,48 @@
 package algdat.bag;
 
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Random;
+import java.util.function.Supplier;
 
-/**
- * Created by sydlar on 08.03.17.
- */
-public abstract class BagTest<T> {
-    int MAX_TEST_SIZE = 1000;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.runners.Parameterized.Parameters;
 
-    private Bag<T> bag;
+@RunWith(Parameterized.class)
+public class BagTest {
+    private static final int MAX_TEST_SIZE = 1000;
+    private static final Random rGen = new Random();
+    private static final Supplier<Integer> INTEGER_SOURCE = () -> rGen.nextInt(100)- 50;
 
-    abstract Bag<T> createBag();
-    abstract T createRandomValue();
-
-    @Before
-    public void init(){
-        bag = createBag();
+    @Parameters(name = "{index} [0: ArrayBag, 1: LinkedBag, 2: BadSetBag]")
+    public static Collection<Supplier<Bag<?>>> data(){
+        return Arrays.asList(ArrayBag::new, LinkedBag::new, BadSetBag::new);
     }
 
+    private Supplier<Bag<Integer>> bagSupplier;
+    private Supplier<Integer> valueSupplier = INTEGER_SOURCE;
+    private Bag<Integer> bag;
+
+    public BagTest(Supplier<Bag<Integer>> supplier){bagSupplier = supplier;}
+
+    @Before
+    public void init(){bag = bagSupplier.get();}
+
     @SuppressWarnings("unchecked")
-    private T[] createRandomValues(int n){
-        T[] elems = (T[]) new Object[n];
+    private Integer[] createRandomValues(int n){
+        Integer[] elems = new Integer[n];
         for(int i = 0; i < elems.length; i++)
-            elems[i] = createRandomValue();
+            elems[i] = valueSupplier.get();
         return elems;
     }
 
-    private T[] createRandomValues(){
+    private Integer[] createRandomValues(){
         return createRandomValues(new Random().nextInt(MAX_TEST_SIZE));
     }
 
@@ -47,28 +59,28 @@ public abstract class BagTest<T> {
     @Test
     public void testIteratorEmpty(){
         int count = 0;
-        for(T b: bag) count++;
+        for(Integer b: bag) count++;
         assertEquals(0,count);
     }
 
 
     @Test
     public void testSize(){
-        T[] elems = createRandomValues();
-        for(T e: elems) bag.add(e);
+        Integer[] elems = createRandomValues();
+        for(Integer e: elems) bag.add(e);
         assertEquals("Wrong size of bag",elems.length,bag.size());
     }
 
     @Test
     public void testIterator(){
-        T[] elems = createRandomValues();
-        for(T e : elems) bag.add(e);
+        Integer[] elems = createRandomValues();
+        for(Integer e : elems) bag.add(e);
 
         int count = 0;
-        for(T b: bag) {
+        for(Integer b: bag) {
             count++;
             boolean found = false;
-            for(T e: elems){
+            for(Integer e: elems){
                 if (e.equals(b)) {
                     found = true;
                     break;
@@ -78,9 +90,9 @@ public abstract class BagTest<T> {
         }
         assertEquals("Wrong number of elements in iterator",elems.length,count);
 
-        for(T e : elems){
+        for(Integer e : elems){
             boolean found = false;
-            for(T b : bag) {
+            for(Integer b : bag) {
                 if (b.equals(e)){
                     found = true;
                     break;

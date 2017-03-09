@@ -21,3 +21,6 @@ Grensesnittet `Stack.java` inneholder `default`-metodene `peek`, `isEmpty` og `i
 
 
 Her må du forholde deg til dokumentajsonen i grensesnittet `Stack.java`, samt testene definert i `ArrayStackTest.java` og `LinkedStackTest.java`.
+
+Her er testene organisert i et klassehierarki som speiler hierarkiet mellom grensesnitt og implementasjoner. En alternativ fremgangsmåte er å bruke en parametrisert test som den vi ser i `algdat.bag.BagTest`.
+
