@@ -10,7 +10,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing..'
-                ehco 'ECHOING'
+                echo 'ECHOING'
                 println 'PRINTLNING'
                 println 'powershell Get-Location'.execute().text
             }
