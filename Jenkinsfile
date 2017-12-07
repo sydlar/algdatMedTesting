@@ -10,7 +10,9 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing..'
-                powershell "Get-Childitem"
+                ehco 'ECHOING'
+                println 'PRINTLNING'
+                println 'powershell Get-Location'.execute().text
             }
         }
         stage('Deploy') {
