@@ -10,6 +10,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing..'
+                powershell "Get-Childitem"
             }
         }
         stage('Deploy') {
