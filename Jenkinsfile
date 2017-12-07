@@ -12,7 +12,7 @@ pipeline {
                 echo 'Testing..'
                 echo 'ECHOING'
                 println 'PRINTLNING'
-                println 'powershell Get-Location'.execute().text
+                bat 'powershell Get-Location'
             }
         }
         stage('Deploy') {
